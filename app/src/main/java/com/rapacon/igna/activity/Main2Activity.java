@@ -2,12 +2,14 @@ package com.rapacon.igna.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -62,8 +64,35 @@ public class Main2Activity extends AppCompatActivity {
              }
 
          }
-
-
      }
+    public void showExternalData (View v) {
 
-}
+        File folder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        File file  = new File(folder, "data3.txt");
+        FileInputStream fin = null;
+
+        try {
+            fin = new FileInputStream(file);
+            int c;
+
+            StringBuffer buffer = new StringBuffer();
+            while ( (c = fin.read()) != -1) {
+                buffer.append((char)c);
+            }
+            tMsg.setText("Hello " + buffer);
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Error reading message",Toast.LENGTH_LONG).show();
+
+        } finally {
+            try {
+                fin.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    }
+
