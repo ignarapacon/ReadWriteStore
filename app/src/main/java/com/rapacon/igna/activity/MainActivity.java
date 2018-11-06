@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText eName, eSection;
@@ -39,6 +43,37 @@ public class MainActivity extends AppCompatActivity {
         writer.commit();
 
         Toast.makeText(this, "Data Saved", Toast.LENGTH_LONG).show();
+    }
+
+    public void saveInternal (View v) {
+        FileOutputStream fos = null;
+
+        try {
+            fos = openFileOutput("data2.txt", MODE_PRIVATE);
+            String name2 = eName.getText().toString();
+            fos.write(name2.getBytes());
+            Toast.makeText(this, " Save Inside Internal Storage", Toast.LENGTH_LONG).show();
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Error Writing Data", Toast.LENGTH_LONG).show();
+
+        }  finally {
+
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //Exception is parent of all Exception Classes
+
 
     }
+
+    //String = immutable
+    //String Buffer = can be changed, can edit content
+
+
+
 }
