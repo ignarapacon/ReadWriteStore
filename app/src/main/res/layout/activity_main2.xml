@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="83dp"
         android:layout_marginTop="186dp"
-        android:onClick="showMessage"
+        android:onClick="showInternalData"
         android:text="GREET" />
 
     <Button
